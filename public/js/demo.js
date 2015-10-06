@@ -27,7 +27,7 @@ $(document).ready(function() {
         $errorMsg = $('.errorMsg'),
         $traits = $('.traits'),
         $results = $('.results');
-    var userhash = "";
+    var userhash = "@";
 
     /**
      * Clear the "textArea"
@@ -40,7 +40,7 @@ $(document).ready(function() {
     /**
      * Grab the user from the URL and or set to null if not passed from the Twitter bot
      */
-    userhash = getURLVariable("user");
+    userhash = userhash + getURLVariable("user");
     console.log(userhash);
     if (userhash !== "" && userhash != false) {
     	handleRequest(userhash);
