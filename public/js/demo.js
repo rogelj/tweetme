@@ -54,9 +54,6 @@ $(document).ready(function() {
     $('.analysis-btn').click(function() {
         userhash = $("#userhash").val();
         
-        //Remove the '@' symbol if they added one
-        userhash.replace("@","");
-
         handleRequest(userhash);
     }); // End analysis-btn click
 
