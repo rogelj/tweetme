@@ -43,6 +43,7 @@ $(document).ready(function() {
     userhash = userhash + getURLVariable("user");
     console.log(userhash);
     if (userhash !== "" && userhash != false) {
+    	userhash = '@'+userhash;
     	handleRequest(userhash);
     }
 
