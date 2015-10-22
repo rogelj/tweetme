@@ -82,6 +82,7 @@ $(document).ready(function() {
             var tweets = data.t;
             var insights = data.p;
             var tweet;
+            $('#tweets').empty();
 
             if (insights.error) {
                 showError(insights.error);
