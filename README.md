@@ -1,5 +1,7 @@
 Watson Personality Insights with Twitter
 -----------------------------------
+This project accompanies my developerWorks tutorial, "Share personality insights with a cognitive Twitter bot" published at http://www.ibm.com/developerworks/library/cc-twitter-bot-personality-insights-nodered-bluemix-trs/index.html."
+
 This is an example of a web-based application for analyzing a Twitter user's timeline of tweets with Watson Personality Insights.
 The app can be paired with a Twitter bot to create a fun user interaction.
 
