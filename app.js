@@ -1,4 +1,5 @@
-/*eslint-env node*/
+/*eslint-env node */
+/*jshint node:true*/
 /**
  * Copyright 2014 IBM Corp. All Rights Reserved.
  *
@@ -15,45 +16,45 @@
  * limitations under the License.
  */
 
-'use strict';
+// "use strict";
 
-var express = require('express'),
+var express = require("express"),
   app = express(),
-  bluemix = require('./config/bluemix'),
-  watson = require('watson-developer-cloud'),
-  extend = require('util')._extend,
-  Twit = require('twit');
+  bluemix = require("./config/bluemix"),
+  watson = require("watson-developer-cloud"),
+  extend = require("util")._extend,
+  Twit = require("twit");
 
 
 // Bootstrap application settings
-require('./config/express')(app);
+require("./config/express")(app);
 
 // if bluemix credentials exists, then override local
 var credentials = extend({
-    version: 'v2',
-    url: '<url>',
-    username: '<username>',
-    password: '<password>'
-}, bluemix.getServiceCreds('personality_insights')); // VCAP_SERVICES
+    version: "v2",
+    url: "<url>",
+    username: "<username>",
+    password: "<password>"
+}, bluemix.getServiceCreds("personality_insights")); // VCAP_SERVICES
 
-// Twitter connection variables
+// Connection variables
 var tweet = new Twit({
-    consumer_key: 'TWITTER CONSUMER KEY',
-    consumer_secret: 'TWITTER CONSUMER SECRET',
-    access_token: 'TWITTER ACCESS TOKEN',
-    access_token_secret: 'TWITTER ACCESS TOKEN SECRET'
+    consumer_key: "AYkHXTszKWnsa4sf5rCNQ",
+    consumer_secret: "rBkSiJbCPVgCn292xw9ybiLMhAqZt9zbSu7dweE25vw",
+    access_token: "1847244530-J0BqcqQuFhdbCjM7LljgMlyZNovKxPxW3Tcqapb",
+    access_token_secret: "1f5xpsdpmcljPGX8Z6WvnC6pZVwtArHVa3MSb5zlc"
 });
 
 // Create the service wrapper
 var personalityInsights = new watson.personality_insights(credentials);
 
 // Render the Index page
-app.get('/', function(req, res) {
-  res.render('index');
+app.get("/", function(req, res) {
+  res.render("index");
 });
 
 // Ajax post for Twitter and Watson
-app.post('/tweetInsights', function(req, res) {
+app.post("/tweetInsights", function(req, res) {
     var query = req.body.id;
     var options;
     var tpath;
@@ -61,7 +62,7 @@ app.post('/tweetInsights', function(req, res) {
 
     console.log("Got request for tweets");
     
-    if(query.charAt(0)==='@'){
+    if(query.charAt(0)==="@"){
     	console.log("Handle to query is: " + query);
     	
     	options = {
@@ -70,7 +71,7 @@ app.post('/tweetInsights', function(req, res) {
         include_rts: false
         };
         
-        tpath = 'statuses/user_timeline';
+        tpath = "statuses/user_timeline";
     	
     }
     else {
@@ -78,11 +79,11 @@ app.post('/tweetInsights', function(req, res) {
     	
     	options = {
         q: query,
-        lang: 'en',
+        lang: "en",
         count: 300,
         };
         
-        tpath = 'search/tweets';
+        tpath = "search/tweets";
     	
     }
 
@@ -95,7 +96,7 @@ app.post('/tweetInsights', function(req, res) {
             console.log(err);
         }
         
-        if(query.charAt(0)==='@'){
+        if(query.charAt(0)==="@"){
         	
         	// Loop through and add tweets to an array
         	for (var i = 0; i < data.length; i++) {
@@ -111,7 +112,7 @@ app.post('/tweetInsights', function(req, res) {
         }
 
         console.log("Returning tweets");
-        var insightsData = tweets.join(' ');
+        var insightsData = tweets.join(" ");
 
         console.log("Request received for Personality Insights...");
 
@@ -119,7 +120,7 @@ app.post('/tweetInsights', function(req, res) {
             text: insightsData
         }, function(err, profile) {
             if (err) {
-                console.log('error:', err);
+                console.log("error:", err);
                 return res.json({t: err, p: err});
             } else {
             	console.log("Personality acquired.")
@@ -141,4 +142,4 @@ app.post('/tweetInsights', function(req, res) {
 
 var port = process.env.VCAP_APP_PORT || 3000;
 app.listen(port);
-console.log('listening at:', port);
+console.log("listening at:", port);
